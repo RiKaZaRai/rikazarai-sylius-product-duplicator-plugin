@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.product.index.content':
+            duplicate_actions:
+                template: '@RiKaZaraiSyliusProductDuplicationPlugin/Admin/Product/duplicate_actions.html.twig'
+                priority: 200
