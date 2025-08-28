@@ -1,0 +1,22 @@
+sylius_grid:
+    grids:
+        sylius_admin_product:
+            actions:
+                item:
+                    rikazarai_duplicate:
+                        type: rikazarai_duplicate
+                        label: rikazarai_sylius_product_duplication.ui.duplicate
+                        options:
+                            link:
+                                route: rikazarai_sylius_product_duplication_admin_product_duplicate
+                                parameters:
+                                    id: resource.id
+                bulk:
+                    rikazarai_bulk_duplicate:
+                        type: rikazarai_bulk_duplicate
+                        label: rikazarai_sylius_product_duplication.ui.bulk_duplicate
+                        
+    templates:
+        action:
+            rikazarai_duplicate: '@RiKaZaraiSyliusProductDuplicationPlugin/Grid/Action/duplicate.html.twig'
+            rikazarai_bulk_duplicate: '@RiKaZaraiSyliusProductDuplicationPlugin/Grid/Action/bulk_duplicate.html.twig'
