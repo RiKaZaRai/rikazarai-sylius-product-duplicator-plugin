@@ -1,0 +1,52 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{{ buttons.default(
+    '#',
+    action.label,
+    null,
+    'copy',
+    'orange',
+    null,
+    {
+        'data-bulk-action': 'bulk-duplicate',
+        'data-bulk-action-requires-confirmation': 'true',
+        'onclick': 'bulkDuplicateProducts(); return false;'
+    }
+) }}
+
+<script>
+function bulkDuplicateProducts() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="ids[]"]:checked');
+    if (checkboxes.length === 0) {
+        alert('{{ 'rikazarai_sylius_product_duplication.ui.no_products_selected'|trans }}');
+        return false;
+    }
+    
+    if (!confirm('{{ 'rikazarai_sylius_product_duplication.ui.confirm_bulk_duplicate'|trans }}')) {
+        return false;
+    }
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ path('rikazarai_sylius_product_duplication_admin_product_bulk_duplicate') }}';
+    
+    // Ajouter le token CSRF
+    const tokenInput = document.createElement('input');
+    tokenInput.type = 'hidden';
+    tokenInput.name = '_token';
+    tokenInput.value = '{{ csrf_token('bulk_duplicate_products') }}';
+    form.appendChild(tokenInput);
+    
+    // Ajouter les IDs sélectionnés
+    checkboxes.forEach(checkbox => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'ids[]';
+        input.value = checkbox.value;
+        form.appendChild(input);
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
