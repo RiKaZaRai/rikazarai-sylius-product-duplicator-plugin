@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Product Duplicator Service -->
+        <service id="rikazarai_sylius_product_duplication.service.product_duplicator" 
+                 class="RiKaZarai\SyliusProductDuplicationPlugin\Service\ProductDuplicatorService">
+            <argument type="service" id="sylius.factory.product"/>
+            <argument type="service" id="sylius.factory.product_variant"/>
+            <argument type="service" id="sylius.factory.channel_pricing"/>
+            <argument type="service" id="sylius.manager.product"/>
+            <argument type="service" id="sylius.repository.product"/>
+            <argument type="service" id="sylius.repository.product_translation"/>
+        </service>
+
+        <!-- Product Duplication Controller -->
+        <service id="rikazarai_sylius_product_duplication.controller.admin.product_duplication" 
+                 class="RiKaZarai\SyliusProductDuplicationPlugin\Controller\Admin\ProductDuplicationController" 
+                 public="true">
+            <argument type="service" id="rikazarai_sylius_product_duplication.service.product_duplicator"/>
+            <argument type="service" id="sylius.repository.product"/>
+            <argument type="service" id="sylius.manager.product"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <!-- Event Listener for Grid Customization -->
+        <service id="rikazarai_sylius_product_duplication.listener.admin_product_grid" 
+                 class="RiKaZarai\SyliusProductDuplicationPlugin\EventListener\AdminProductGridListener">
+            <tag name="kernel.event_listener" event="sylius.grid.admin_product" method="addDuplicateActions"/>
+        </service>
+    </services>
+</container>
