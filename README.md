@@ -39,7 +39,7 @@ RiKaZarai\SyliusProductDuplicationPlugin\RiKaZaraiSyliusProductDuplicationPlugin
 ```yaml
 rikazarai_admin:
     resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/routing/admin.yaml"
-    prefix: /admin
+    prefix: /%sylius_admin.path_name%  
 ```
 
 3. **Importer la configuration** dans `config/packages/rikazarai_sylius_product_duplication.yaml` :
