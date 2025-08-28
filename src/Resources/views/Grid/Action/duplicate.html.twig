@@ -1,0 +1,17 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+<form method="post" action="{{ path('rikazarai_sylius_product_duplication_admin_product_duplicate', {'id': resource.id}) }}" style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('duplicate_product_' ~ resource.id) }}">
+    {{ buttons.default(
+        null,
+        action.label,
+        null,
+        'copy',
+        'blue',
+        null,
+        {
+            'type': 'submit',
+            'data-confirm': 'rikazarai_sylius_product_duplication.ui.confirm_duplicate'|trans
+        }
+    ) }}
+</form>
