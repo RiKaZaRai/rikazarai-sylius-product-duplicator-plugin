@@ -20,11 +20,12 @@
         }
     ],
     "require": {
-        "php": "^8.3",
-        "sylius/sylius": "^2.0",
+        "php": "^8.3 || ^8.4",
+        "sylius/sylius": "^2.1",
         "symfony/framework-bundle": "^7.3"
     },
     "require-dev": {
+        "sylius/test-application": "^2.0@alpha",
         "phpunit/phpunit": "^11.0",
         "symfony/test-pack": "^1.0",
         "phpstan/phpstan": "^1.0",
@@ -39,13 +40,15 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "RiKaZarai\\SyliusProductDuplicationPlugin\\Tests\\": "tests/"
+            "RiKaZarai\\SyliusProductDuplicationPlugin\\Tests\\": "tests/",
+            "Tests\\RiKaZarai\\SyliusProductDuplicationPlugin\\": "tests/TestApplication/src/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0-dev"
         },
+        "public-dir": "vendor/sylius/test-application/public",
         "symfony": {
             "require": "^7.3"
         }
