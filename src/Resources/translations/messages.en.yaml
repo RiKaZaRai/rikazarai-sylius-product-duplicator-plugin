@@ -1,0 +1,22 @@
+rikazarai_sylius_product_duplication:
+    ui:
+        duplicate: Duplicate
+        bulk_duplicate: Bulk duplicate
+        bulk_duplicate_selected: Duplicate selected products
+        duplicate_this_product: Duplicate this product
+        create_copy: Create a copy
+        duplication_tools: Duplication tools
+        duplication_description: Duplicate your products quickly to save time
+        bulk_action_info: Important information
+        bulk_action_description: Select the products you want to duplicate by checking the boxes, then click the bulk duplication button.
+        no_products_selected: No products selected
+        confirm_duplicate: Are you sure you want to duplicate this product?
+        confirm_bulk_duplicate: Are you sure you want to duplicate the selected products?
+        confirm_bulk_duplicate_count: Are you sure you want to duplicate %count% product(s)?
+        product_duplicated_successfully: Product has been duplicated successfully
+        product_duplication_failed: Product duplication failed
+        bulk_duplication_success: '%count% product(s) have been duplicated successfully'
+        bulk_duplication_partial_error: '%count% product(s) could not be duplicated'
+        invalid_csrf_token: Invalid CSRF token
+        duplication_in_progress: Duplication in progress...
+        please_wait: Please wait...
