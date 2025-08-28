@@ -1,0 +1,13 @@
+rikazarai_sylius_product_duplication_admin_product_duplicate:
+    path: /products/{id}/duplicate
+    methods: [POST]
+    defaults:
+        _controller: rikazarai_sylius_product_duplication.controller.admin.product_duplication::duplicate
+    requirements:
+        id: \d+
+
+rikazarai_sylius_product_duplication_admin_product_bulk_duplicate:
+    path: /products/bulk-duplicate
+    methods: [POST]
+    defaults:
+        _controller: rikazarai_sylius_product_duplication.controller.admin.product_duplication::bulkDuplicate
