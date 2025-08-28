@@ -1,0 +1,13 @@
+<div class="ui labeled button" tabindex="0">
+    <form method="post" action="{{ path('rikazarai_sylius_product_duplication_admin_product_duplicate', {'id': resource.id}) }}" style="display: inline;">
+        <input type="hidden" name="_token" value="{{ csrf_token('duplicate_product_' ~ resource.id) }}">
+        <button type="submit" class="ui blue button" 
+                onclick="return confirm('{{ 'rikazarai_sylius_product_duplication.ui.confirm_duplicate'|trans }}')">
+            <i class="copy icon"></i>
+            {{ 'rikazarai_sylius_product_duplication.ui.duplicate_this_product'|trans }}
+        </button>
+    </form>
+    <a class="ui basic blue left pointing label">
+        {{ 'rikazarai_sylius_product_duplication.ui.create_copy'|trans }}
+    </a>
+</div>
