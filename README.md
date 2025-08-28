@@ -95,7 +95,7 @@ rikazarai_sylius_product_duplication:
 
 - PHP 8.3+
 - Symfony 7.3+
-- Sylius 2.0+
+- Sylius 2.1+
 
 ## 🧪 Tests
 
