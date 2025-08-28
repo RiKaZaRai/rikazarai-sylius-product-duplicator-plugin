@@ -44,9 +44,10 @@ rikazarai_admin:
 
 3. **Importer la configuration** dans `config/packages/rikazarai_sylius_product_duplication.yaml` :
 ```yaml
+# config/packages/rikazarai_sylius_product_duplication.yaml
 imports:
-    - { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/config.yaml" }
-    - { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/sylius_twig_hooks.yaml" }
+- { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/config/config.yaml" }
+- { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/config/sylius_twig_hooks.yaml"
 ```
 
 4. **Vider le cache** :
