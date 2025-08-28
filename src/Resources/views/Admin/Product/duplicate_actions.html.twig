@@ -1,0 +1,86 @@
+<div class="ui segment" style="margin-bottom: 1rem;">
+    <h4 class="ui header">
+        <i class="copy icon"></i>
+        <div class="content">
+            {{ 'rikazarai_sylius_product_duplication.ui.duplication_tools'|trans }}
+            <div class="sub header">{{ 'rikazarai_sylius_product_duplication.ui.duplication_description'|trans }}</div>
+        </div>
+    </h4>
+    
+    <div class="ui basic segment">
+        <div class="ui yellow message">
+            <div class="header">{{ 'rikazarai_sylius_product_duplication.ui.bulk_action_info'|trans }}</div>
+            <p>{{ 'rikazarai_sylius_product_duplication.ui.bulk_action_description'|trans }}</p>
+        </div>
+        
+        <button class="ui orange button" onclick="bulkDuplicateProducts()" disabled id="bulk-duplicate-btn">
+            <i class="copy icon"></i>
+            {{ 'rikazarai_sylius_product_duplication.ui.bulk_duplicate_selected'|trans }}
+        </button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Activer/désactiver le bouton de duplication en lot selon la sélection
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="ids[]"]');
+    const bulkBtn = document.getElementById('bulk-duplicate-btn');
+    
+    function updateBulkButton() {
+        const checkedBoxes = document.querySelectorAll('input[type="checkbox"][name="ids[]"]:checked');
+        if (bulkBtn) {
+            bulkBtn.disabled = checkedBoxes.length === 0;
+        }
+    }
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateBulkButton);
+    });
+    
+    // Checkbox "Select All"
+    const selectAll = document.querySelector('input[type="checkbox"][data-js-bulk-checkboxes]');
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            setTimeout(updateBulkButton, 100); // Délai pour que les autres checkboxes soient mis à jour
+        });
+    }
+    
+    updateBulkButton();
+});
+
+function bulkDuplicateProducts() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="ids[]"]:checked');
+    if (checkboxes.length === 0) {
+        alert('{{ 'rikazarai_sylius_product_duplication.ui.no_products_selected'|trans }}');
+        return false;
+    }
+    
+    const confirmMessage = '{{ 'rikazarai_sylius_product_duplication.ui.confirm_bulk_duplicate_count'|trans }}';
+    if (!confirm(confirmMessage.replace('%count%', checkboxes.length))) {
+        return false;
+    }
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ path('rikazarai_sylius_product_duplication_admin_product_bulk_duplicate') }}';
+    
+    // Ajouter le token CSRF
+    const tokenInput = document.createElement('input');
+    tokenInput.type = 'hidden';
+    tokenInput.name = '_token';
+    tokenInput.value = '{{ csrf_token('bulk_duplicate_products') }}';
+    form.appendChild(tokenInput);
+    
+    // Ajouter les IDs sélectionnés
+    checkboxes.forEach(checkbox => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'ids[]';
+        input.value = checkbox.value;
+        form.appendChild(input);
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
