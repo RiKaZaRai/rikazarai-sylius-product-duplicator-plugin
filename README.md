@@ -1,117 +1,136 @@
-🔄 RiKaZarai Sylius Product Duplication Plugin
-Afficher l'image
-Afficher l'image
-Afficher l'image
-Afficher l'image
-Afficher l'image
-Afficher l'image
-Afficher l'image
+# 🔄 RiKaZarai Sylius Product Duplication Plugin
 
-Plugin Sylius professionnel développé par RiKaZarai 👨‍💻
-Dupliquez vos produits en un clic ! Gain de temps garanti pour vos intégrations e-commerce.
+[![Packagist Version](https://img.shields.io/packagist/v/rikazarai/sylius-product-duplication-plugin.svg)](https://packagist.org/packages/rikazarai/sylius-product-duplication-plugin)
+[![Total Downloads](https://img.shields.io/packagist/dt/rikazarai/sylius-product-duplication-plugin.svg)](https://packagist.org/packages/rikazarai/sylius-product-duplication-plugin)
+[![GitHub Stars](https://img.shields.io/github/stars/RiKaZarai/sylius-product-duplication-plugin.svg)](https://github.com/RiKaZarai/sylius-product-duplication-plugin)
+![Sylius](https://img.shields.io/badge/Sylius-2.0+-green.svg)
+![Symfony](https://img.shields.io/badge/Symfony-7.3+-blue.svg)
+![PHP](https://img.shields.io/badge/PHP-8.3+-purple.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-✨ Fonctionnalités
+Plugin Sylius qui permet de **dupliquer des produits** individuellement ou en lot depuis le panel d'administration.
 
-🔄 Duplication individuelle : Bouton "Dupliquer" sur chaque produit
-📦 Duplication en lot : Sélection multiple et duplication de masse
-🔒 Sécurité CSRF : Protection contre les attaques CSRF
-🌐 Multi-langue : Support complet FR/EN (extensible)
-⚡ Performance optimisée : Duplication efficace avec gestion des relations
-🎯 Interface intuitive : Intégration native dans l'interface admin Sylius
-✅ Codes uniques : Génération automatique de codes et slugs uniques
-🔧 Configurable : Options pour personnaliser la duplication
-🛡️ Résistant aux mises à jour : Utilise les Twig Hooks Sylius 2.x
+## ✨ Fonctionnalités
 
-📋 Prérequis
+- 🔄 **Duplication individuelle** avec bouton dédié sur chaque produit
+- 📦 **Duplication en lot** avec sélection multiple
+- 🔒 **Sécurité CSRF** et vérification des permissions
+- 🌐 **Multi-langue** (Français/Anglais)
+- ⚡ **Performance optimisée** pour gros catalogues
+- ✅ **Codes uniques** générés automatiquement
+- 🎯 **Interface native** intégrée à l'admin Sylius
 
-PHP 8.3 ou supérieur
-Symfony 7.3 ou supérieur
-Sylius 2.0 ou supérieur
+## 🚀 Installation
 
-🚀 Installation rapide
-bash# Installation du plugin
+### Avec Composer
+
+```bash
 composer require rikazarai/sylius-product-duplication-plugin
+```
 
-# ✅ Avec Symfony Flex, l'activation est automatique !
-# Le plugin sera automatiquement enregistré dans config/bundles.php
+### Configuration manuelle (si Flex non utilisé)
 
-# Vider le cache
+1. **Activer le bundle** dans `config/bundles.php` :
+```php
+RiKaZarai\SyliusProductDuplicationPlugin\RiKaZaraiSyliusProductDuplicationPlugin::class => ['all' => true],
+```
+
+2. **Importer les routes** dans `config/routes/rikazarai_product_duplication.yaml` :
+```yaml
+rikazarai_admin:
+    resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/routing/admin.yaml"
+    prefix: /admin
+```
+
+3. **Importer la configuration** dans `config/packages/rikazarai_sylius_product_duplication.yaml` :
+```yaml
+imports:
+    - { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/config.yaml" }
+    - { resource: "@RiKaZaraiSyliusProductDuplicationPlugin/Resources/config/sylius_twig_hooks.yaml" }
+```
+
+4. **Vider le cache** :
+```bash
 php bin/console cache:clear
-⚙️ Configuration
-Le plugin peut être configuré via config/packages/rikazarai_sylius_product_duplication.yaml :
-yamlrikazarai_sylius_product_duplication:
-    enabled: true                    # Activer/désactiver le plugin
-    copy_images: true               # Copier les images des produits
-    copy_associations: true         # Copier les associations de produits
-    duplicate_suffix: ' (Copie)'    # Suffixe ajouté aux noms des produits dupliqués
-🎯 Utilisation
-Duplication individuelle
+```
 
-Allez dans Catalogue > Produits dans l'admin Sylius
-Cliquez sur le bouton "Dupliquer" (icône copie bleue) à côté du produit désiré
-Confirmez l'action
-Le nouveau produit dupliqué s'ouvre automatiquement pour édition
+## 🎯 Utilisation
 
-Duplication en lot
+### Duplication individuelle
+1. Allez dans **Catalogue > Produits**
+2. Cliquez sur le bouton bleu **"Dupliquer"** 
+3. Le produit dupliqué s'ouvre pour édition
 
-Allez dans Catalogue > Produits dans l'admin Sylius
-Cochez les cases des produits à dupliquer
-Cliquez sur "Dupliquer les produits sélectionnés" (bouton orange en haut)
-Confirmez l'action
-Tous les produits sélectionnés sont dupliqués
+### Duplication en lot
+1. Sélectionnez les produits à dupliquer (cases à cocher)
+2. Cliquez sur **"Dupliquer les produits sélectionnés"**
+3. Confirmez l'action
 
-🔧 Ce qui est dupliqué
-✅ Données complètement copiées
+## ⚙️ Configuration
 
-✅ Informations de base : Statut, catégories de taxe/expédition
-✅ Traductions : Noms, slugs, descriptions, méta-données SEO
-✅ Variantes complètes : Options, prix, dimensions, stock
-✅ Prix multi-canaux : Prix de base, prix originaux, prix minimum
-✅ Relations : Canaux, taxons, attributs, options produit
-✅ Associations : Produits liés, up-sell, cross-sell
-✅ Images et médias : Toutes les images produits
-✅ Configuration avancée : Toutes les propriétés métier
+```yaml
+# config/packages/rikazarai_sylius_product_duplication.yaml
+rikazarai_sylius_product_duplication:
+    enabled: true                    # Activer/désactiver
+    copy_images: true               # Copier les images
+    copy_associations: true         # Copier les associations
+    duplicate_suffix: ' (Copie)'    # Suffixe des noms
+```
 
-🔄 Données uniques générées
+## 🔧 Données dupliquées
 
-🆔 Codes produits : ORIGINAL-copy-1, ORIGINAL-copy-2, etc.
-🔗 Slugs SEO : original-slug-copy-1, original-slug-copy-2, etc.
-📝 Noms affichés : Nom original (Copie)
+### ✅ Complètement copiées
+- Informations de base (statut, catégories)
+- Traductions (noms, descriptions, SEO)
+- Variantes avec prix et options
+- Relations (canaux, taxons, attributs)
+- Associations et images
 
-🛡️ Sécurité
+### 🔄 Générées automatiquement
+- **Codes** : `PRODUIT-copy-1`, `PRODUIT-copy-2`...
+- **Slugs** : `slug-copy-1`, `slug-copy-2`...
+- **Noms** : `Nom original (Copie)`
 
-Protection CSRF : Tous les formulaires incluent des tokens CSRF
-Permissions : Vérification des droits d'administration
-Validation : Validation des données d'entrée
-Codes uniques : Vérification d'unicité des codes et slugs
+## 📋 Prérequis
 
-🧪 Tests
-bash# Tests unitaires
-./vendor/bin/phpunit tests/Unit
+- PHP 8.3+
+- Symfony 7.3+
+- Sylius 2.0+
 
-# Tests fonctionnels
-./vendor/bin/phpunit tests/Functional
+## 🧪 Tests
 
-# Tous les tests
-./vendor/bin/phpunit
-👨‍💻 Auteur
-RiKaZarai - Développeur Full Stack Symfony/Sylius Expert
+```bash
+./vendor/bin/phpunit              # Tous les tests
+./vendor/bin/phpunit tests/Unit   # Tests unitaires
+```
 
-🐙 GitHub: @RiKaZarai
+## 👨‍💻 Auteur
 
-🤝 Contribution
-Les contributions sont les bienvenues !
+**RiKaZarai** - [@RiKaZarai](https://github.com/RiKaZarai)
 
-Fork le projet sur GitHub
-Créez votre branche (git checkout -b feature/AmazingFeature)
-Committez (git commit -m 'Add some AmazingFeature')
-Pushez (git push origin feature/AmazingFeature)
-Ouvrez une Pull Request
+## 🤝 Contribution
 
-📄 Licence
-Ce plugin est distribué sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+1. Fork le projet
+2. Créez votre branche (`git checkout -b feature/ma-fonctionnalite`)
+3. Commit (`git commit -m 'Ajoute ma fonctionnalité'`)
+4. Push (`git push origin feature/ma-fonctionnalite`) 
+5. Ouvrez une Pull Request
+
+## 📄 Licence
+
+MIT License - voir le fichier [LICENSE](LICENSE)
+
+## 🙏 Support
+
+- **Issues** : [GitHub Issues](https://github.com/RiKaZarai/sylius-product-duplication-plugin/issues)
+- **Documentation** : [Wiki](https://github.com/RiKaZarai/sylius-product-duplication-plugin/wiki)
+
+---
 
 <div align="center">
-⭐ Si ce plugin vous aide, n'hésitez pas à lui donner une étoile ! ⭐
-Développé avec ❤️ par RiKaZarai pour la communauté Sylius
+
+**Développé par [RiKaZarai](https://github.com/RiKaZarai) pour la communauté Sylius**
+
+⭐ **Si ce plugin vous aide, donnez-lui une étoile !** ⭐
+
 </div>
